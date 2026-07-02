@@ -1,0 +1,45 @@
+class Solution {
+  public:
+  bool possible(vector<int>& vec,int cows,int d)
+        {
+            int cnt=1;
+            int last=vec[0];
+
+            for(int i=1;i<vec.size();i++)
+            {
+                if(vec[i]-last>=d)
+                {
+                    cnt++;
+                    last=vec[i];
+                }
+            }
+            if(cnt>=cows)
+            return true;
+            else
+            return false;
+
+        }
+    int aggressiveCows(vector<int> &stalls, int k) {
+
+
+
+        int i=1;
+        int j=*max_element(stalls.begin(),stalls.end())-*min_element(stalls.begin(),stalls.end());
+        int ans=1;
+        int mid;
+        sort(stalls.begin(),stalls.end());
+        while(i<=j)
+        {
+            mid=(i+j)/2;
+            if(possible(stalls,k,mid)){
+            ans=mid;
+            i=mid+1;
+            }
+
+            else
+            j=mid-1;
+        }
+        return ans;
+
+    }
+};
