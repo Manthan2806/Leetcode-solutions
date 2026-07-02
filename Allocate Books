@@ -1,0 +1,47 @@
+class Solution {
+	public:
+	int countStudents(vector<int>& vec, int pages)
+	{
+		int student = 1;
+		int pagesGiven = 0;
+
+		for (int i = 0; i<vec.size(); i++)
+			{
+			if (pagesGiven + vec[i] <= pages)
+				{
+				pagesGiven += vec[i];
+			}
+			else {
+				student++;
+				pagesGiven = vec[i];
+			}
+		}
+		return student;
+	}
+
+	int findPages(vector<int> &arr, int k) {
+
+		if (k>arr.size())
+			return - 1;
+
+		int i = *max_element(arr.begin(), arr.end());
+		int j = accumulate(begin(arr), end(arr), 0);
+		int ans = -1;
+		int mid;
+		while (i <= j)
+			{
+			mid = (i + j)/2;
+			if (countStudents(arr, mid)>k) {
+				ans = mid;
+				i = mid + 1;
+
+			}
+			else
+				{
+				j = mid - 1;
+			}
+
+		}
+		return i;
+	}
+};
