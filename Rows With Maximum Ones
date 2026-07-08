@@ -1,0 +1,44 @@
+class Solution {
+  public:
+    int noOfone(vector<vector<int>>& vec,int a)
+    {
+        int col=vec[0].size();
+        int i=0;
+        int j=col-1;
+        int mid;
+        while(i<=j)
+        {
+            mid=(i+j)/2;
+            if( mid-1>=0 && (vec[a][mid]==1&&vec[a][mid-1]==0) )
+            return col-mid;
+            else if(mid==0 && vec[a][mid]==1)
+            return col-mid;
+
+            else if(vec[a][mid]==1 && vec[a][mid-1]==1)
+            j=mid-1;
+
+            else
+            i=mid+1;
+        }
+            return INT_MIN;
+    }
+    int rowWithMax1s(vector<vector<int>> &arr) {
+       int i=0,ans=0,idx=0,n;
+
+       for(i;i<arr.size();i++)
+       {
+          n=noOfone(arr,i);
+          if(ans<n)
+          {
+              idx=i;
+              ans=n;
+          }
+       }
+       if(ans==0)
+       return -1;
+
+       return idx;
+
+
+    }
+};

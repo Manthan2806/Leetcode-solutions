@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    double minMaxDist(vector<int> &stations, int K) {
+    priority_queue<pair<double,int>> pq;
+    vector<int> howMany(stations.size()-1,0);
+    if(stations.size()==1)
+    return 0;
+
+    for(int i=0;i<stations.size()-1;i++)
+    pq.push({(double)(stations[i+1]-stations[i]),i});
+
+    for(int j=1;j<=K;j++)
+    {
+        auto it=pq.top();
+        pq.pop();
+        int idx=it.second;
+        howMany[idx]++;
+       double newDiff=(stations[idx+1]-stations[idx])/(double)(howMany[idx]+1);
+        pq.push({newDiff,it.second});
+    }
+
+    auto ans=pq.top();
+    return ans.first;
+    }
+};
