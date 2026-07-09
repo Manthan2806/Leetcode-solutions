@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+    int findMax(vector<vector<int>>& vec,int c)
+    {
+        int rans=INT_MIN;
+        int r=-1;
+        for(int i=0;i<vec.size();i++)
+        {
+            if(rans<vec[i][c])
+            {
+                rans=vec[i][c];
+                r=i;
+            }
+        }
+        return r;
+    }
+    vector<int> findPeakGrid(vector<vector<int>>& mat) {
+        int i=0,j=mat[0].size()-1;
+        int mid,row;
+
+        while(i<=j)
+        {
+            mid=(i+j)/2;
+            row=findMax(mat,mid);
+            int left=mid-1>=0?mat[row][mid-1]:-1;
+            int right=mid+1<(int)mat[0].size()?mat[row][mid+1]:-1;
+
+
+            if(mat[row][mid]>right && mat[row][mid]>left)
+            return {row,mid};
+            else if(mat[row][mid]<right && mat[row][mid]>left)
+            i=mid+1;
+            else
+            j=mid-1;
+        }
+        return {-1,-1};
+    }
+};
